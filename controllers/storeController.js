@@ -8,7 +8,7 @@ const multerOptions = {
   storage: multer.memoryStorage(),
   fileFilter(req, file, next) {
     const isPhoto = file.mimetype.startsWith('image/');
-    if(isPhoto) next(null, true);
+    if (isPhoto) next(null, true);
     else next('That file type isn\'t allowed', false);
   }
 }
@@ -23,7 +23,7 @@ exports.addStore = (req, res, next) => {
 
 exports.upload = multer(multerOptions).single('photo');
 exports.resize = async (req, res, next) => {
-  if(!req.file) {
+  if (!req.file) {
     next()
     return;
   }
@@ -63,4 +63,13 @@ exports.updateStore = async (req, res, next) => {
   }).exec();
   req.flash('info', `Successfully updated the store <strong>${store.name}</strong>. <a href="/stores/${store.slug}">View store</a>`)
   res.redirect(`/stores/${store._id}/edit`);
+}
+
+exports.getStoreBySlug = async (req, res, next) => {
+  const store = await Store.findOne({ 'slug': req.params.slug });
+  if (!store) {
+    next();
+    return;
+  }
+  res.render('store', { store, title: store.name });
 }
