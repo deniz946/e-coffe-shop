@@ -14,6 +14,7 @@ const storeSchema = new mongoose.Schema({
     trim: true,
   },
   tags: [String],
+  photo: String,
   created: {
     type: Date,
     default: new Date()
