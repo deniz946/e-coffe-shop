@@ -3,7 +3,7 @@ extends ../layout
 block content
   .inner
     h2=title
-    form(action="/account", method="post")
+    form.form(action="/account", method="post")
       label(for="name") Name
       input(type="text" name="name" value=user.name)
       label(for="email") Email

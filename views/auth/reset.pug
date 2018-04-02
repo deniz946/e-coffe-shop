@@ -1,0 +1,11 @@
+extends ../layout
+
+block content
+  .inner
+    form.form(action=`/account/reset/${resetKey}` method="POST")
+      h2 Set new password
+      label(for="passwordNew") New password
+      input(type="password" name="passwordNew" )
+      label(for="passwordNewConfirm") Repeat new password
+      input(type="password" name="passwordNewConfirm" )
+      input.button(type="submit" value="Reset password")
