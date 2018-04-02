@@ -10,7 +10,7 @@ router.get('/', catchErrors(storeController.getStores));
 router.get('/stores', catchErrors(storeController.getStores));
 router.get('/store/:slug', catchErrors(storeController.getStoreBySlug));
 router.get('/stores/:id/edit', catchErrors(storeController.editStore));
-router.get('/add', storeController.addStore);
+router.get('/add', authController.isLoggedIn, storeController.addStore);
 router.post('/add',
   storeController.upload,
   storeController.resize,
@@ -28,6 +28,8 @@ router.get('/tags/:id', catchErrors(storeController.getStoresByTag))
 
 // Login
 router.get('/login', catchErrors(usersController.loginForm))
+router.post('/login', authController.login),
+router.get('/logout', authController.logout)
 router.get('/register', catchErrors(usersController.registerForm))
 router.post('/register',
   usersController.validateRegister,
