@@ -2,8 +2,8 @@ extends ../layout
 
 block content
   .inner
-    h2=title
     form.form(action="/register" method="POST")
+      h2=title
       label(for="name") Name
       input(type="name" name="name" id="name" required)
       label(for="email") Email
