@@ -11,7 +11,6 @@ block content
     img.single__map(src=h.staticMap(store.location.coordinates))
     p.single__location= store.location.address
     p= store.description
-    - const url = 
     if store.tags
       ul.tags
         each tag in store.tags
