@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const storeController = require('./../controllers/storeController');
+const tagsController = require('./../controllers/tagsController');
 const { catchErrors } = require('./../handlers/errorHandlers')
 
 // Stores
@@ -19,5 +20,9 @@ router.post('/add/:id',
   storeController.resize,
   catchErrors(storeController.updateStore)
 );
+
+// Tags
+router.get('/tags', catchErrors(storeController.getStoresByTag))
+router.get('/tags/:id', catchErrors(storeController.getStoresByTag))
 
 module.exports = router;
