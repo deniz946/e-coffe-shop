@@ -40,9 +40,9 @@ router.post('/register',
 // Account
 router.get('/account', authController.isLoggedIn, usersController.account)
 router.post('/account', authController.isLoggedIn, catchErrors(usersController.updateAccount))
-router.post('/account/forgot', catchErrors(usersController.forgot))
-router.get('/account/reset/:resetKey', catchErrors(usersController.resetForm))
-router.post('/account/reset/:resetKey', usersController.validateResetPassword, catchErrors(usersController.resetPassword))
+router.post('/account/forgot', catchErrors(authController.forgot))
+router.get('/account/reset/:resetKey', catchErrors(authController.resetForm))
+router.post('/account/reset/:resetKey', authController.validateResetPassword, catchErrors(authController.resetPassword))
 
 
 
