@@ -34,10 +34,15 @@ const storeSchema = new mongoose.Schema({
       type: String,
       required: 'You must enter an address'
     }
+  },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: 'You must supply an author'
   }
 })
 
-storeSchema.pre('save', async function(next) {
+storeSchema.pre('save', async function (next) {
   // Dont slugify if the name has not changed
   if (!this.isModified('name')) {
     next();
@@ -47,13 +52,13 @@ storeSchema.pre('save', async function(next) {
   // find other stores that have a slug of bulldog, bulldog-1, bulldog-2
   const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
   const storesWithSlug = await this.constructor.find({ slug: slugRegEx });
-  if(storesWithSlug.length) {
+  if (storesWithSlug.length) {
     this.slug = `${this.slug}-${storesWithSlug.length + 1}`;
   }
   next();
 });
 
-storeSchema.statics.getTagsList = function() {
+storeSchema.statics.getTagsList = function () {
   return this.aggregate([
     { $unwind: '$tags' },
     { $group: { _id: '$tags', count: { $sum: 1 } } },

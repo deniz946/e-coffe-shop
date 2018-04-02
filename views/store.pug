@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  h1=h.dump(store)
   .single
     .single__hero
       img.single__image(src=`/uploads/${store.photo || 'store.png'}`)
